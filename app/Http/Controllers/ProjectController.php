@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Models\Type;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use Illuminate\Support\Facades\Storage;
@@ -23,7 +24,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('pages.projects.create');
+        $types = Type::all();
+        return view('pages.projects.create',compact('types'));
     }
 
     /**
@@ -62,7 +64,8 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-     return view('pages.projects.edit',compact('project'));
+        $types = Type::all();
+     return view('pages.projects.edit',compact('project','types'));
     }
 
     /**
@@ -76,16 +79,16 @@ class ProjectController extends Controller
         $slug = Project::generateSlug($request->project_name);
 
         $validData['slug'] = $slug;
+
         if($request->hasFile('image')){
             if($project->image){
                 Storage::delete($project->image);
               }
         }
-
-          $path = Storage::disk('public')->put('project_images',$request->image);
+                 $path = Storage::disk('public')->put('project_images',$request->image);
 
           $validData['image']= $path;
-
+        //  dd($validData);
         $project = $project->update($validData);
         return redirect()->route('dashboard.projects.index');
     }

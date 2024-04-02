@@ -16,7 +16,18 @@
                 @error('description')
                <div class="alert alert-danger">{{ $message }}</div>
                @enderror
+                <label for="type_id">Project Type</label>
+                <select id="type_id" name="type_id" class="form-select @error("type_id") is-invalid  @enderror" aria-label="Default select example">
+                    <option selected>Open this select menu</option>
 
+                    @foreach ($types as $item )
+                    <option value="{{$item->id}}" {{$item->id == old('type_id') ? 'selected':''}}>{{$item->name}}</option>
+                    @endforeach
+
+                </select>
+                @error('type_id')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
                <div class="mb-3">
                 <label for="formFile" class="form-label">Add an image</label>
                 <input value="{{old('image')}}" class="form-control  @error("image") is-invalid  @enderror" type="file" id="formFile" name="image">
