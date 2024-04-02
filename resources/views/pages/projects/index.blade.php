@@ -12,7 +12,7 @@
             <th scope="col">Type</th>
             <th scope="col">Description</th>
             <th scope="col">Slug</th>
-            {{-- <th scope="col">Image Path</th> --}}
+            <th scope="col">Image Path</th>
             <th scope="col">Website URL</th>
             <th scope="col">Manage Projects</th>
           </tr>
@@ -25,7 +25,7 @@
                 <td>{{$item->type_id}}</td>
                 <td>{{$item->description}}</td>
                 <td>{{$item->slug}}</td>
-                {{-- <td>{{$item->image}}</td> --}}
+                <td>{{$item->image}}</td>
                 <td>{{$item->website}}</td>
                 <td><a href={{route('dashboard.projects.edit',$item->slug)}} class="btn btn-primary m-1">Edit</a>
                     <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
